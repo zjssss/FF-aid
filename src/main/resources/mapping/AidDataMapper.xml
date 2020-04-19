@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ffaid.mapper.AidDataMapper">
+
+
+    <insert id="createAidData" parameterType="com.example.ffaid.domain.AidData" useGeneratedKeys="true" keyProperty="id">
+        insert into aidData(byId, creatTime, location, details, isEnd, endTime, isSelf, deleted)
+        values (#{byId},current_timestamp ,#{location},#{details},0,current_timestamp ,#{isSelf},0)
+    </insert>
+
+    <select id="getNewAidData" resultType="com.example.ffaid.domain.AidData">
+        select *from aidData
+        where isEnd=0
+    </select>
+
+    <update id="endAidData">
+        update aidData
+        set isEnd=1
+        where id=#{id}
+    </update>
+
+
+
+</mapper>
