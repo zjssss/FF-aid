@@ -35,7 +35,7 @@ public class FfaidApplication {
 
 基于Springboot，采用Maven组织项目，项目结构如下：
 
-![image-20200420141012087](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420141012087.png)
+image-20200420141012087
 
 ##### 1. controller层：定义项目接口，包装VO提供给前端，API遵循restful原则
 
