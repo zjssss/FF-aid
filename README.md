@@ -35,7 +35,7 @@ public class FfaidApplication {
 
 基于Springboot，采用Maven组织项目，项目结构如下：
 
-image-20200420141012087
+![image](http://git.swcontest2020.com/swc_20200266/ff-aid/blob/master/ff-aid-master/image/image-20200420141012087.png)
 
 ##### 1. controller层：定义项目接口，包装VO提供给前端，API遵循restful原则
 
