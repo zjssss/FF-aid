@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ffaid.mapper.IllDataMapper">
+
+    <select id="findUserIllData" resultType="com.example.ffaid.domain.IllData">
+        select * from illData
+        where userId=#{userId}
+    </select>
+
+    <select id="findIllData" resultType="com.example.ffaid.domain.IllData">
+        select * from illData where id=#{id}
+    </select>
+
+    <insert id="createIllData" parameterType="com.example.ffaid.domain.IllData" useGeneratedKeys="true" keyProperty="id">
+        insert into illData(userId, illkind, addtime, detail, deleted)
+        values (#{userId},#{illkind},current_timestamp ,#{detail},0)
+    </insert>
+
+    <update id="updateIllData" parameterType="com.example.ffaid.domain.IllData">
+        update illData
+        <set>
+            <if test="illkind!=null">
+                illkind=#{illkind},
+            </if>
+            <if test="detail!=null">
+                detail=#{detail}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <update id="deleteIllData">
+        update illData
+        set deleted=1
+        where id=#{id}
+    </update>
+
+
+</mapper>
