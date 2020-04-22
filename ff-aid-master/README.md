@@ -96,12 +96,12 @@ http://121.199.2.219:8080/swagger-ui.html
 
 ![image-20200420155410742](ff-aid-master/image/image-20200420155410742.png)
 
+- AdviceUtils   流行病给出建议相关类
 - BaiduAuth   用于获得百度AI接口的权限
 - Base64Util    用于格式转换（人脸识别图像需要为64base）
 
 - FileUploadUtil & FileUtil   文件相关操作工具类
 - GsonUtils   用于解析Json字符串
-- AdviceUtils   流行病给出建议相关类
 
 ##### 8. VO:  包装提供给前端的数据类型
 
