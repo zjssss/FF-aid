@@ -8,11 +8,11 @@ FF-AID是一款基于多设备互联的智能急救快应用。即点即用，�
 
 #### 项目结构
 
-项目主要包含三个模块
+项目主要包含三个模块,本模块对应Java后端工程：
 
-- ff-aid-App: 快应用前端：使用html+css+js 快应用框架
-- ff-aid-python: 算法：使用python编写
-- ff-aid-master: Java后端：使用Springboot + Maven
+- **ff-aid-master: Java后端：使用Springboot + Maven**
+> - ff-aid-App: 快应用前端：使用html+css+js 快应用框架
+> - ff-aid-python: 算法：使用python编写
 
 
 
@@ -35,11 +35,11 @@ public class FfaidApplication {
 
 基于Springboot，采用Maven组织项目，项目结构如下：
 
-image-20200420141012087
+![image](ff-aid-master/image/image-20200420141012087.png)
 
 ##### 1. controller层：定义项目接口，包装VO提供给前端，API遵循restful原则
 
-![image-20200420141917457](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420141917457.png)
+![image-20200420141917457](ff-aid-master/image/image-20200420141917457.png)
 
 - **UserController**：用户操作接口，包含了**项目的大部分核心功能接口**，以及用户的基本操作
 
@@ -54,7 +54,7 @@ http://121.199.2.219:8080/swagger-ui.html
 
 ##### 2. Service层：主要的业务逻辑代码
 
-![image-20200420152640879](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420152640879.png)
+![image-20200420152640879](ff-aid-master/image/image-20200420152640879.png)
 
 - **UserService**：用户操作业务逻辑，**包含了项目的大部分核心功能的业务逻辑**，以及用户的基本操作
 
@@ -65,13 +65,13 @@ http://121.199.2.219:8080/swagger-ui.html
 
 ##### 3. Dao层/Mapper层：数据持久层，连接数据库
 
-![image-20200420153427830](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420153427830.png)
+![image-20200420153427830](ff-aid-master/image/image-20200420153427830.png)
 
-![image-20200420153455644](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420153455644.png)
+![image-20200420153455644](ff-aid-master/image/image-20200420153455644.png)
 
 #####  4. domain层：定义pojo对象
 
-![image-20200420154127652](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420154127652.png)
+![image-20200420154127652](ff-aid-master/image/image-20200420154127652.png)
 
 - 急救信息
 - 既往病史
@@ -80,21 +80,21 @@ http://121.199.2.219:8080/swagger-ui.html
 
 ##### 5. faceapi：人脸识别操作
 
-![image-20200420153535310](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420153535310.png)
+![image-20200420153535310](ff-aid-master/image/image-20200420153535310.png)
 
 - FaceAdd   包含了人脸录入相关函数和业务逻辑
 - FaceIdentify   包含了人脸识别相关函数和业务逻辑
 
 ##### 6. speechapi：语音识别，转文字操作
 
-![image-20200420154356974](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420154356974.png)
+![image-20200420154356974](ff-aid-master/image/image-20200420154356974.png)
 
 - AsrMain   包含了语音识别函数和业务逻辑
 - common   文件夹中包含了语音识别相关的工具类
 
 ##### 7. util：包含了项目中的所有工具类
 
-![image-20200420155410742](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420155410742.png)
+![image-20200420155410742](ff-aid-master/image/image-20200420155410742.png)
 
 - BaiduAuth   用于获得百度AI接口的权限
 - Base64Util    用于格式转换（人脸识别图像需要为64base）
@@ -104,7 +104,7 @@ http://121.199.2.219:8080/swagger-ui.html
 
 ##### 8. VO:  包装提供给前端的数据类型
 
-![image-20200420160506486](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420160506486.png)
+![image-20200420160506486](ff-aid-master/image/image-20200420160506486.png)
 
 - Output  返回给客户端的病情判断结果
 - Description   病情初判的完整信息
@@ -114,12 +114,12 @@ http://121.199.2.219:8080/swagger-ui.html
 
 ##### 9. config： 配置文件
 
-![image-20200420160540839](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420160540839.png)
+![image-20200420160540839](ff-aid-master/image/image-20200420160540839.png)
 
 - 对应项目的Swagger配置
 
 ##### 10. Exception
 
-![image-20200420160630019](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200420160630019.png)
+![image-20200420160630019](ff-aid-master/image/image-20200420160630019.png)
 
 - 异常处理操作
