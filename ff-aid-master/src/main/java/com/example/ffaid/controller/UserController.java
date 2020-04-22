@@ -11,6 +11,7 @@ import com.example.ffaid.service.Neo4jService;
 import com.example.ffaid.service.UrgentTelService;
 import com.example.ffaid.speechapi.AsrMain;
 import com.example.ffaid.speechapi.common.DemoException;
+import com.example.ffaid.util.AdviceUtil;
 import com.example.ffaid.util.FileUpLoadUtil;
 import com.example.ffaid.util.GsonUtils;
 import com.example.ffaid.util.IdUtil;
@@ -48,6 +49,8 @@ public class UserController {
 
     @Autowired
     private Neo4jService neo4jService;
+
+    AdviceUtil adviceUtil=new AdviceUtil();
 
 
     /**
@@ -144,41 +147,30 @@ public class UserController {
         return ResponseEntity.ok(userService.speechIdentifyDoc(file));
     }
 
+    /**
+     * 通过疾病获得急救指导
+     */
     @GetMapping(value = "/aidCare")
     public Object searchNode(@RequestParam("disease") String disease)throws Exception{
         return ResponseEntity.ok(neo4jService.searchNode(disease));
     }
 
-
-    public static void main(String[] args) {
-//        String result="呃，这个人，他口吐白沫";
-//        String[] arguments = new String[] {"python","C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",result};
-//        String result1="";
-//        try {
-//
-//            Process process = Runtime.getRuntime().exec(arguments);
-//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
-//            String line = null;
-//            while ((line = in.readLine()) != null) {
-//                System.out.println(line);
-//                result1=result1+line;
-//            }
-//
-//            in.close();
-//
-//            //java代码中的process.waitFor()返回值为0表示我们调用python脚本成功，
-//            //返回值为1表示调用python脚本失败，这和我们通常意义上见到的0与1定义正好相反
-//            int re = process.waitFor();
-//            System.out.println(re);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-////        String result1="{\"disease\": [], \"symtoms\": \"[\"1\",\"2\"]\"}";
-////        result1=result1.substring(1,result1.length()-1);
-//        Description result3= GsonUtils.fromJson(result1,Description.class);
-//        System.out.println(result3.getSymptoms().get(1));
-//        System.out.println(result3.getDisease().get(1).getName());
-//        System.out.println(result3.getDisease().get(1).getRelatedDisease());
-
+    /**
+     * 流行病检测——通过选择的症状判断自己患流行病的概率（这里特指新冠）
+     */
+    @GetMapping(value="/epidemic")
+    @ApiOperation(value="流行病检测——通过选择的症状判断自己患流行病的概率（这里特指新冠）",tags={""},notes="")
+    public Object epidemicTest(@RequestParam("describe") String describe)throws Exception{
+        return ResponseEntity.ok(userService.epidemicTest(describe));
     }
+
+    /**
+     * 流行病检测——通过患该流行病的概率获得当前建议（特指新冠）
+     */
+    @GetMapping(value="/advice")
+    @ApiOperation(value="流行病检测——通过患该流行病的概率获得当前建议（特指新冠）",tags={""},notes="")
+    public Object epidemicAdvice(@RequestParam("rate") Integer rate)throws Exception{
+        return ResponseEntity.ok(adviceUtil.advice(rate));
+    }
+
 }

@@ -10,6 +10,7 @@ import com.example.ffaid.domain.User;
 import com.example.ffaid.faceapi.FaceIdentify;
 import com.example.ffaid.speechapi.AsrMain;
 import com.example.ffaid.speechapi.common.DemoException;
+import com.example.ffaid.util.AdviceUtil;
 import com.example.ffaid.util.FileUpLoadUtil;
 import com.example.ffaid.util.GsonUtils;
 import com.example.ffaid.util.IdUtil;
@@ -35,6 +36,8 @@ public class UserService {
 
     @Autowired
     UrgentTelService urgentTelService;
+
+    AdviceUtil adviceUtil=new AdviceUtil();
 
     public static String UPLOAD_PATH="/root/imag/picStore";
 
@@ -184,6 +187,29 @@ public class UserService {
             e.printStackTrace();
         }
         return result2;
+    }
+
+    public Object epidemicTest(String describe) throws IOException, DemoException {
+        int rate=30;
+//        String result="";
+//        //        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",result1};
+//        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",describe};
+//        try {
+//            Process process = Runtime.getRuntime().exec(arguments);
+//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
+////            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+//            String line = null;
+//            while ((line = in.readLine()) != null) {
+//                System.out.println(line);
+//                result=result+line;
+//            }
+//            rate=Integer.parseInt(result);
+//            in.close();
+//            int re1 = process.waitFor();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        return rate;
     }
 
     public User userLogin(String username, String password) {
