@@ -101,6 +101,7 @@ http://121.199.2.219:8080/swagger-ui.html
 
 - FileUploadUtil & FileUtil   文件相关操作工具类
 - GsonUtils   用于解析Json字符串
+- AdviceUtils   流行病给出建议相关类
 
 ##### 8. VO:  包装提供给前端的数据类型
 
