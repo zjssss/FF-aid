@@ -47,8 +47,8 @@ public class UserService {
     public String handleUploadPicture(MultipartFile file) {
         String ranName = IdUtil.getValue(8)
                 + file.getOriginalFilename();
-        String path = LOCAL_PATH
-//        String path = UPLOAD_PATH
+//        String path = LOCAL_PATH
+        String path = UPLOAD_PATH
                 + ranName;
 
 
@@ -62,8 +62,8 @@ public class UserService {
     public String handleUploadPictureCheck(MultipartFile file) {
         String ranName1 = IdUtil.getValue(8)
                 + file.getOriginalFilename();
-        String path = LOCAL_CHECK_PATH
-//        String path = CHECK_PATH
+//        String path = LOCAL_CHECK_PATH
+        String path = CHECK_PATH
                 + ranName1;
         String ok;ok = "Success";
         if (ok.equals(FileUpLoadUtil.upload(file, path))) {
@@ -85,12 +85,12 @@ public class UserService {
 
     public Object WordIdentify(String word) throws IOException, DemoException {
         String result="";
-        String[] arguments = new String[] {"pythona", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",word};
-//        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",word};
+//        String[] arguments = new String[] {"pythona", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",word};
+        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",word};
         try {
             Process process = Runtime.getRuntime().exec(arguments);
-            BufferedReader in  = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
-//            BufferedReader in  = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
+//            BufferedReader in  = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+            BufferedReader in  = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
             String line = null;
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
@@ -165,12 +165,12 @@ public class UserService {
         int loc1=result.indexOf("result");
         int loc2=result.indexOf("\"",loc1+10);
         String result1=result.substring(loc1+10,loc2);
-        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",result1};
-//        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",result1};
+//        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",result1};
+        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",result1};
         try {
             Process process = Runtime.getRuntime().exec(arguments);
-//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
-            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
+//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
             String line = null;
             while ((line = in.readLine()) != null) {
                 System.out.println(line);

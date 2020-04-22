@@ -32,11 +32,11 @@ public class SwaggerConfig{
 
     //api接口作者相关信息
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("DIX", "", "24320172203264@stu.xmu.edu.cn");
+        Contact contact = new Contact("X-theme_DIX", "", "24320172203264@stu.xmu.edu.cn");
         ApiInfo apiInfo = new ApiInfoBuilder()
                 .license("")
-                .title("FFAID 只能急救系统")
-                .description("接口文档")
+                .title("FFAID 智能急救系统")
+                .description("\n接口文档")
                 .contact(contact)
                 .version("1.0")
                 .build();
