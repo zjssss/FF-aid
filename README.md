@@ -10,7 +10,7 @@ FF-AID是一款基于多设备互联的智能急救快应用。即点即用，�
 
 项目主要包含三个模块
 
-- ff-aid-QuickApp: 快应用前端：使用html+css+js 快应用框架
+- ff-aid-QuickApp: 快应用前端：基于快应用框架
 - ff-aid-python: 算法：使用python编写
 - ff-aid-master: Java后端：使用Springboot + Maven
 
