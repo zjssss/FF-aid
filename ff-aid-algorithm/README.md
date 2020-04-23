@@ -95,3 +95,6 @@
 
 - 对应代码为 confidenceBasedModel.py
 - 使用方法和 bayesBasedModel.py 无异
+
+#### 注：
+若需要查看构建的w2v模型和网络数据库，请联系电话/微信13859994668，或者在微信群中私戳我们哦~
