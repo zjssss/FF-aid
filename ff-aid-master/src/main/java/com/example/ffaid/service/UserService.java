@@ -88,8 +88,8 @@ public class UserService {
 
     public Object WordIdentify(String word) throws IOException, DemoException {
         String result="";
-//        String[] arguments = new String[] {"pythona", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",word};
-        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",word};
+//        String[] arguments = new String[] {"pythona", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\bayesBasedModel.py",word};
+        String[] arguments = new String[] {"python3", "/root/py/bayesBasedModel.py",word};
         try {
             Process process = Runtime.getRuntime().exec(arguments);
 //            BufferedReader in  = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
@@ -169,7 +169,7 @@ public class UserService {
         int loc2=result.indexOf("\"",loc1+10);
         String result1=result.substring(loc1+10,loc2);
 //        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",result1};
-        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",result1};
+        String[] arguments = new String[] {"python3", "/root/py/bayesBasedModel.py",result1};
         try {
             Process process = Runtime.getRuntime().exec(arguments);
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
@@ -190,27 +190,32 @@ public class UserService {
     }
 
     public Object epidemicTest(String describe) throws IOException, DemoException {
-        int rate=30;
-//        String result="";
-//        //        String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\confidenceBasedModel3.py",result1};
-//        String[] arguments = new String[] {"python3", "/root/py/confidenceBasedModel3.py",describe};
-//        try {
-//            Process process = Runtime.getRuntime().exec(arguments);
-//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
-////            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
-//            String line = null;
-//            while ((line = in.readLine()) != null) {
-//                System.out.println(line);
-//                result=result+line;
-//            }
-//            rate=Integer.parseInt(result);
-//            in.close();
-//            int re1 = process.waitFor();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        double rate=0;
+        System.out.println(describe);
+        String result="";
+//                String[] arguments = new String[] {"python", "C:\\Users\\Administrator\\Desktop\\下\\OPPO\\v2\\specialDiseaseDiagnosis.py",describe};
+        String[] arguments = new String[] {"python3", "/root/py/specialDiseaseDiagnosis.py",describe};
+        try {
+            Process process = Runtime.getRuntime().exec(arguments);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
+//            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),"GBK"));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                line = in.readLine();
+                System.out.println(line);
+                result=result+line;
+            }
+            System.out.println(result);
+            rate=Double.valueOf(result.toString());
+            in.close();
+            int re1 = process.waitFor();
+            System.out.println(re1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return rate;
     }
+
 
     public User userLogin(String username, String password) {
         return userDao.userLogin(username, password);
