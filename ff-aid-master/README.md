@@ -1,24 +1,7 @@
-## FF-AID
 
-#### 项目概述：
+## FF-AID JAVA后端：
 
-FF-AID是一款基于多设备互联的智能急救快应用。即点即用，一键求救。根据用户对突发疾病的语音描述，自动提取症状列表，查找相关疾病，并结合人脸识别匹配的患者既往病史等信息，计算给出置信度前三的疾病列表，完成病情初判。智能生成可能伴随病症待用户确认，以完善病情描述，得出二次判断。响应“互联网+医疗”形式，以最及时最准确的病情判断和急救指导提高患者的生存率。
-
-
-
-#### 项目结构
-
-项目主要包含三个模块,本模块对应Java后端工程：
-
-- **ff-aid-master: Java后端：使用Springboot + Maven**
-> - ff-aid-App: 快应用前端：使用html+css+js 快应用框架
-> - ff-aid-python: 算法：使用python编写
-
-
-
-##### JAVA后端：
-
-项目的主入口文件为 FfaidApplication 入口函数为 main
+项目的主入口文件为 **FfaidApplication** 入口函数为 **main**
 
 ``` java
 @SpringBootApplication
@@ -33,7 +16,7 @@ public class FfaidApplication {
 
 
 
-基于Springboot，采用Maven组织项目，项目结构如下：
+基于**Springboot**，采用**Maven**组织项目，项目结构如下：
 
 ![image](ff-aid-master/image/image-20200420141012087.png)
 
