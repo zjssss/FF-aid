@@ -72,14 +72,14 @@ FF-AID是一款基于多设备互联的智能急救快应用。即点即用，�
 
   ```python
   if __name__ == "__main__":
-      diagnose(sys.argv[1], '新冠 ')
+      diagnose(sys.argv[1], '新冠肺炎')
   ```
 
   参数 sys.argv[1] 表示输入的病症，这里是通过调用获取的，若想要直接调用可以改成字符串如
 
   ```python
   if __name__ == "__main__":
-      diagnose('头晕,咳嗽,干咳', '新冠 ')
+      diagnose('头晕,咳嗽,干咳', '新冠肺炎')
   ```
 
   参数 ‘ 新冠 ’ 对应要检测的疾病，这里以新冠举例
