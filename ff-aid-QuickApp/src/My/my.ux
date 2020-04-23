@@ -1,0 +1,34 @@
+<import name="register" src="../Register/register"></import>
+<import name="login" src="../Login/login"></import>
+<template>
+    <!-- template里只能有一个根节点 -->
+    <tabs index="{{selectIndex}}" class="demo-page" @change="tabChange">
+        <tab-bar mode="scrollable">
+            <text class="{{(selectIndex == 0) ? 'select':'normal'}}" style="width:50%;font-size:20px;text-align:center" @click="tabClick(0)">注册</text>
+            <text class="{{(selectIndex == 1) ? 'select':'normal'}}" style="width:50%;font-size:20px;text-align:center" @click="tabClick(1)">登录</text>
+        </tab-bar>
+        <tab-content>
+            <register></register>
+            <login></login>
+        </tab-content>
+    </tabs>
+</template>
+
+<style src="./my.css"></style>
+
+<script>
+    import router from '@system.router';
+    import prompt from '@system.prompt'
+
+    export default {
+        data: {
+            selectIndex:0
+        },
+        tabClick(index){
+            this.selectIndex = index;
+        },
+        tabChange(e){
+            this.selectIndex = e.index;
+        }
+    }
+</script>

@@ -1,0 +1,92 @@
+<!--引入自定义的模版-->	
+<!--引入疾病自测页面-->
+	<import name='detection' src="../Detection/detection.ux"></import>
+<!--引入求救页面-->
+	<import name='help' src="../Help/help.ux"></import>
+<!--引入我的页面-->
+	<import name='my' src="../My/my.ux"></import>
+<template>
+    <!--注意：template里只能有一个根节点 -->
+    <div class="container">
+        <!--根据不同的flag显示不同的页面-->
+        <block if="{{flag==0}}">
+            <!--显示疾病自测页面-->
+            <detection></detection>	 
+        </block>
+        <block elif="{{flag==1}}">
+            <!--显示求救页面-->	 
+	        <help></help>  
+        </block>
+        <block elif="{{flag==2}}">
+            <!--显示我的页面-->	 
+            <my></my>	
+        </block>
+
+        <!--底部导航栏-->
+        <tabs>
+            <tab-bar class="footer-container">
+                <!--遍历tabBar.list，生成导航栏-->
+                <block for='tabBar.list'>
+                    <div class="footer-item" onclick="setIndex($idx)">	 
+                        <!--$idx为tabBar.list当前的索引值，以0开始-->
+                        <!--如果当前页面被选中-->	            
+                            <block if='{{$idx==flag}}'>	          
+                            <!--icon-->	         
+                            <image src="{{tabBar.list[$idx].selected_icon}}" class="footer-item-img2"></image>
+                            <!--页面标签值-->	       
+                            <text class="tab-text" style="color: {{tabBar.list[$idx].selected_color}}">{{tabBar.list[$idx].name}}</text>	   
+                         </block>
+                        <!--当前页面未被选中-->	     
+                        <block else>	         
+                            <image src="{{tabBar.list[$idx].icon}}" class="footer-item-img1"></image>	  
+                            <text class="tab-text" style="color: {{tabBar.list[$idx].color}}">{{tabBar.list[$idx].name}}</text>	  
+                        </block>	
+                    </div>	  
+                </block>
+            </tab-bar>
+        </tabs>
+    </div>
+</template>
+
+<style src="./tabbar.css"></style>
+
+<script>
+    module.exports = {
+        data: {	      
+            flag: 1,//默认为1 求救，0 疾病自测，2 我的
+            tabBar: {	       
+                list: [{	       
+                    name: '流行疾病自测',//当前页面标签值	
+                    icon: 'https://upload-images.jianshu.io/upload_images/16487260-3c1faf64238f319f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240',//未选中icon地址
+                    color: '#7ec6cc',//未选中时文本颜色	 
+                    selected_color: '#7ec6cc',//选中时文本颜色	
+                    selected_icon: 'https://upload-images.jianshu.io/upload_images/16487260-3c1faf64238f319f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'//选中是icon地址
+                },{
+                    name: '求救',
+                    icon: 'https://upload-images.jianshu.io/upload_images/16487260-ae7e9baa5eef55c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240',
+                    color: '#7ec6cc',	   
+                    selected_color: '#7ec6cc',
+                    selected_icon: 'https://upload-images.jianshu.io/upload_images/16487260-ae7e9baa5eef55c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'
+                }, {
+                    name: '我的',
+                    icon: 'https://upload-images.jianshu.io/upload_images/16487260-e3bef1569e92786f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240',	
+                    color: '#7ec6cc',	     
+                    selected_color: '#7ec6cc',
+                    selected_icon: 'https://upload-images.jianshu.io/upload_images/16487260-e3bef1569e92786f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'
+                }]
+            }
+        },
+        //初始化，进入界面加载的事件
+        onInit() {
+            //设置页面title
+            this.$page.setTitleBar({ text:  "FF-AID·"+this.tabBar.list[this.flag].name})
+        },
+        //修改flag实现点击导航栏显示不同的页面，pos为传入的参数	
+        setIndex: function (pos) {
+            //设置flag，flag改变后显示的页面也会对应的改变
+            this.flag = pos
+            //设置页面标题
+            this.$page.setTitleBar({ text: "FF-AID·"+this.tabBar.list[pos].name })
+        }
+    }
+</script>

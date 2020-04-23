@@ -1,0 +1,68 @@
+<template>
+    <div class="demo-page">
+        <div class="suggestion-item">
+            <text class="titletype">{{time}}</text>
+            <text class="text-area">{{mylocation}}</text>
+            <text class="text-area">{{temperature}}</text>
+            <text class="text-area">{{symptoms}}</text>
+        </div>
+        <div class="suggestion-item">
+            <text class="titletype">{{time}}</text>
+            <text class="text-area">{{mylocation}}</text>
+            <text class="text-area">{{temperature}}</text>
+            <text class="text-area">{{symptoms}}</text>
+        </div>
+        <div class="suggestion-item">
+            <text class="titletype">{{time}}</text>
+            <text class="text-area">{{mylocation}}</text>
+            <text class="text-area">{{temperature}}</text>
+            <text class="text-area">{{symptoms}}</text>
+        </div>
+        <div class="suggestion-item">
+            <text class="titletype">{{time}}</text>
+            <text class="text-area">{{mylocation}}</text>
+            <text class="text-area">{{temperature}}</text>
+            <text class="text-area">{{symptoms}}</text>
+        </div>
+    </div>
+</template>
+
+<style src="../Detectionresult/detectionresult.css"></style>
+
+
+<script>
+import storage from '@system.storage'
+
+export default {
+    data:{
+        time:'',
+        mylocation:'',
+        temperature:'',
+        symptoms:'',
+    },
+    onInit() {
+        this.$page.setTitleBar({text: '检测结果'})
+
+        var date=new Date();
+        var year=date.getFullYear();
+        var month=date.getMonth()+1;
+        var day=date.getDate();
+        this.time=year+'-'+month+'-'+day;
+        
+        storage.get({
+                key: 'location',
+                success: (data) => {
+                    this.mylocation='定位：'+data;
+                },
+                fail: (data, code) => {
+                    console.log("handling fail, code=" + code);
+                    prompt.showToast({
+                        message: '定位查询失败',
+                    });
+                }
+        });
+        this.temperature='体温（℃）：'+this.$app.$data.d_temperature;
+        this.symptoms='症状：'+this.$app.$data.d_symptom;
+    }
+}
+</script>

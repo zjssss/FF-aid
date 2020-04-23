@@ -1,0 +1,206 @@
+<template>
+    <!-- template里只能有一个根节点 -->
+    <div class="demo-page">
+        <div class="label-item">
+            <label>我已知道发病原因，可以在语音中做出相关描述</label>
+            <text class="{{(isknown == 0) ? 'label-btn2':'label-btn1'}}" type="button" onclick="Isknown">√</text>
+        </div>
+        <div class="voice-item">
+            <text class="titletype">病情描述</text>
+            <div show="{{tospeak}}" class="beginbtn" type="button" @click="Beginspeak"></div>
+            <div show="{{speaking}}" class="overbtn" type="button" @click="Overspeak"></div>
+            <text if="{{tospeak}}" class="tips">点击开始说话</text>
+            <text elif="{{speaking}}" class="tips">点击结束说话</text>
+            <text show="{{overspeak}}" class="illtext">{{illdetail}}</text>
+        </div>
+        <div show="{{!isknown}}" class="recognition-btn1" type="button" onclick="Totakephoto"></div>
+        <div show="{{isknown}}" class="recognition-btn2" type="button"></div>
+        <text class="tips">前往识别人脸</text>
+        <div>
+            <input show="{{overspeak}}" class="main-btn1" type="button" value="急救指导" onclick="Callforhelp"></input>
+            <input show="{{!overspeak}}" class="main-btn2" type="button" value="急救指导"></input>
+        </div>
+
+        <div show="{{showloading}}" style="width:125px;height:60px;flex-direction:column;align-items:center;left:125px;bottom:320px;position:fixed;">
+            <image src="https://upload-images.jianshu.io/upload_images/16487260-7a9a97606317c402.gif?imageMogr2/auto-orient/strip"
+            style="width:40px;height:40px;"></image>
+            <text style="width:125px;height:20px;font-size:12px;color:#c9c9c6;">算法优化中请稍等片刻</text>
+        </div>
+    </div>
+</template>
+
+<style src="./condition.css"></style>
+
+<script>
+    import router from '@system.router'
+    import fetch from '@system.fetch'
+    import request from '@system.request'
+    import prompt from '@system.prompt'
+    import sms from '@system.sms'
+    import record from '@system.record'
+    import audio from '@system.audio'
+    import storage from '@system.storage'
+
+            prompt.showDialog({
+                title: '120急救中心',
+                message: '是否向120急救中心发送求救信息？',
+                autocancel :false,
+                buttons: [
+                {
+                    text:'是',
+                    color: '#7ec6cc'
+                },
+                {
+                    text:'否',
+                    color: '#7ec6cc'
+                }
+                ],
+                success: function (data) {
+                    console.log('handling callback')
+                    if(data.index==0)
+                        prompt.showToast({
+                            message: "求救信息发送成功",
+                        });
+                    else if(data.index==1)
+                        prompt.showToast({
+                            message: "取消发送求救信息",
+                        });
+                },
+                cancel: function (data) {
+                    console.log('handling cancel')
+                },
+                fail: function (data, code) {
+                    console.log(`handling fail, code = ${code}`)
+                }
+            })
+
+    export default {
+        data: {
+            isknown: 0,
+            tospeak: 1,
+            speaking: 0,
+            overspeak: 0,
+            illdetail:'',
+            recorduri:'',
+            showloading:0,
+        },
+        
+        onInit() {
+            this.$page.setTitleBar({text: '求救'});
+        },
+        Isknown(){
+            if(this.isknown==1) 
+                this.isknown=0;
+            else if(this.isknown==0) 
+                this.isknown=1;
+        },
+        Beginspeak(){
+            this.tospeak=0;
+            this.speaking=1;
+            this.overspeak=0;
+
+            record.start({
+                format:'aac',
+                success:(data) =>{
+                    console.log("handling success: " + data.uri);
+                    this.recorduri =  data.uri;
+                },
+                fail:(data, code) =>{
+                    console.log("handling fail, code=" + code);
+                },
+                complete:() =>{
+                    console.log("complete");
+                    // prompt.showToast({
+                    //     message:"complete",
+                    // });
+                    // audio.src = this.recorduri;
+                    // audio.play();
+
+                    request.upload({
+                        url: 'http://121.199.2.219:8080/users/voice',
+                        method: "POST",
+                        contentType:"multipart/form-data",
+                        files: [{
+                            uri: this.recorduri,
+                            filename: 'source.aac'
+                        }],
+                        success: (data) => {
+                            this.illdetail=data.data;
+                            console.log("handling success");
+                            storage.set({
+                                key: 'illdetail',
+                                value: this.illdetail,
+                            })
+                        },
+                        fail: (data, code) => {
+                            console.log("handling fail, code"+code); 
+                        }
+                    })
+                }
+            })
+        },
+        Overspeak(){
+            this.tospeak=0;
+            this.speaking=0;
+            this.overspeak=1;
+
+            record.stop();
+        },
+        Totakephoto(){
+            storage.set({
+                key: 'cameranum',
+                value: 1,//1：人脸识别；2：人脸认证
+            })
+            router.push ({
+                uri: '/MyCamera'
+            })
+        },
+        Callforhelp(){
+            if(this.isknown==1){
+                storage.set({
+                    key: 'fullpoint',
+                    value: 1,
+                })
+                storage.set({
+                    key: 'disease21',
+                    value: this.illdetail,
+                })
+                router.push ({
+                    uri: '/Guidance'
+                })
+            }
+            else if(this.isknown==0){
+            this.showloading=1;
+            fetch
+                .fetch({
+                url: 'http://121.199.2.219:8080/users/vWord?word='+this.illdetail,
+                responseType: 'json',
+                method:'get'
+                })
+                .then(res => {
+                    this.$app.$data.disease1=res.data.data.aid1;
+                    this.$app.$data.disease2=res.data.data.aid2;
+                    this.$app.$data.disease3=res.data.data.aid3;
+
+                    this.$app.$data.sym1=res.data.data.s1;
+                    this.$app.$data.sym2=res.data.data.s2;
+                    this.$app.$data.sym3=res.data.data.s3;
+                    this.$app.$data.sym4=res.data.data.s4;
+                    this.$app.$data.sym5=res.data.data.s5;
+                    this.$app.$data.sym6=res.data.data.s6;
+
+                    this.showloading=0;
+                    router.push ({
+                        uri: '/Prejudice'
+                    })
+                })
+                .catch(error => {
+                    this.showloading=0;
+                    prompt.showToast({
+                        message: "访问超时",
+                    });
+                })
+            }
+        }
+    }
+</script>

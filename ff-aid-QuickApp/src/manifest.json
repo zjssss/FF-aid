@@ -1,0 +1,139 @@
+{
+  "package": "com.xtheme.ffaid",
+  "name": "FF-AID",
+  "versionName": "1.0.4",
+  "versionCode": "4",
+  "minPlatformVersion": "1020",
+  "icon": "/Common/logo.png",
+  "features": [
+    {
+      "name": "system.prompt"
+    },
+    {
+      "name": "system.router"
+    },
+    {
+      "name": "system.sms"
+    },
+    {
+      "name": "system.geolocation"
+    },
+    {
+      "name": "system.fetch"
+    },
+    {
+      "name": "system.request"
+    },
+    {
+      "name": "system.file"
+    },
+    {
+      "name": "system.image"
+    },
+    {
+      "name": "system.media"
+    },
+    {
+      "name": "system.storage"
+    }
+  ],
+  "permissions": [
+    {
+      "origin": "*"
+    }
+  ],
+  "config": {
+    "logLevel": "debug",
+    "designWidth": 375,
+    "network": {
+      "readTimeout":60000
+    },
+    "data":{
+      "d_illtype":"",
+      "d_symptom":"",
+      "d_temperature":"",
+      "d_persentage":"",
+      "d_suggestion":"",
+
+      "disease1":"",
+      "disease2":"",
+      "disease3":"",
+      "sym1":"",
+      "sym2":"",
+      "sym3":"",
+      "sym4":"",
+      "sym5":"",
+      "sym6":""
+    }
+  },
+  "router": {
+    "entry": "Tabbar",
+    "pages": {
+      "Tabbar": {
+        "component": "tabbar"
+      },
+      "Help": {
+        "component": "help"
+      },
+      "Detection": {
+        "component": "detection"
+      },
+      "My": {
+        "component": "my"
+      },
+      "Condition": {
+        "component": "condition"
+      },
+      "Prejudice": {
+        "component": "prejudice"
+      },
+      "Guidance": {
+        "component": "guidance"
+      },
+      "MyCamera": {
+        "component": "mycamera"
+      },
+      "Detectionresult":{
+        "component": "detectionresult"
+      },
+      "Detectionanalyse":{
+        "component": "detectionanalyse"
+      }
+    },
+    "widgets": {
+      "Card": {
+        "name": "FF-AID",
+        "description": "您的智能急救助手",
+        "component": "card",
+        "path": "/Card",
+        "features": [
+          {
+            "name": "system.network"
+          },
+          {
+            "name": "system.router"
+          },
+          {
+            "name": "system.geolocation"
+          },
+          {
+            "name": "system.fetch"
+          },
+          {
+            "name": "system.storage"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "titleBarBackgroundColor": "#a6d8dc",
+    "titleBarTextColor": "#ffffff",
+    "menu": true,
+    "pages": {
+      "Tabbar": {
+        "menu": true
+      }
+    }
+  }
+}

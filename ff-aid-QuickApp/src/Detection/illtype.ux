@@ -1,0 +1,121 @@
+<template>
+    <div class="demo-page">
+        <div class="symptom-item">
+            <text class="titletype">现有症状</text>
+            <div class="tem-row">
+                <text class="tem-left">体温(℃)：</text>
+                <input type="number" class="tem-right" onchange="Inputtem"></input>
+            </div>
+            <list id="list" class="this-listbox">
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue1 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[0]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue2 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[1]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue3 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[2]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue4 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[3]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue5 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[4]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue6 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[5]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue7 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[6]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue8 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[7]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue9 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[8]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue10 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[9]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue11 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[10]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue12 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[11]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue13 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[12]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue14 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[13]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue15 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[14]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue16 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[15]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue17 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[16]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue18 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Symptomlist[17]}}" @click="changecolor()"></input>
+                    </list-item>
+            </list>
+        </div>
+    </div>
+</template>
+
+<style src="./detection.css"></style>
+
+<script>
+    import prompt from '@system.prompt'
+    import router from '@system.router'
+
+    export default {
+        data: {
+            isblue:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            isblue1:0,isblue2:0,isblue3:0,isblue4:0,isblue5:0,isblue6:0,
+            isblue7:0,isblue8:0,isblue9:0,isblue10:0,isblue11:0,isblue12:0,
+            isblue13:0,isblue14:0,isblue15:0,isblue16:0,isblue17:0,isblue18:0,
+            Symptomlist: ["咳嗽","咳痰","呼吸困难","胸痛","腹痛","腹泻","眼睛红肿","少尿或无尿",
+            "血尿","食欲不振","皮肤痛痒","呕吐","畏寒","乏力","鼻塞","咯血","打喷嚏","流眼泪"],
+        },
+        Inputtem(e){
+            this.$app.$data.d_temperature=e.value;
+        },
+        changecolor(e){
+            for(var i=0;i<18;i++){
+                if(e.target.attr.value==this.Symptomlist[i]){
+                    this.isblue[i]=(this.isblue[i]==0)?1:0;
+                    switch(i){
+                        case 0:this.isblue1=(this.isblue1 == 0) ? 1:0;break;
+                        case 1:this.isblue2=(this.isblue2 == 0) ? 1:0;break;
+                        case 2:this.isblue3=(this.isblue3 == 0) ? 1:0;break;
+                        case 3:this.isblue4=(this.isblue4 == 0) ? 1:0;break;
+                        case 4:this.isblue5=(this.isblue5 == 0) ? 1:0;break;
+                        case 5:this.isblue6=(this.isblue6 == 0) ? 1:0;break;
+                        case 6:this.isblue7=(this.isblue7 == 0) ? 1:0;break;
+                        case 7:this.isblue8=(this.isblue8 == 0) ? 1:0;break;
+                        case 8:this.isblue9=(this.isblue9 == 0) ? 1:0;break;
+                        case 9:this.isblue10=(this.isblue10 == 0) ? 1:0;break;
+                        case 10:this.isblue11=(this.isblue11 == 0) ? 1:0;break;
+                        case 11:this.isblue12=(this.isblue12 == 0) ? 1:0;break;
+                        case 12:this.isblue13=(this.isblue13 == 0) ? 1:0;break;
+                        case 13:this.isblue14=(this.isblue14 == 0) ? 1:0;break;
+                        case 14:this.isblue15=(this.isblue15 == 0) ? 1:0;break;
+                        case 15:this.isblue16=(this.isblue16 == 0) ? 1:0;break;
+                        case 16:this.isblue17=(this.isblue17 == 0) ? 1:0;break;
+                        case 17:this.isblue18=(this.isblue18 == 0) ? 1:0;break;
+                    }
+                }
+            }
+            this.$app.$data.d_symptom="";
+            for(var j=0;j<18;j++){
+                if(this.isblue[j]==1)
+                    this.$app.$data.d_symptom=this.$app.$data.d_symptom+this.Symptomlist[j]+' ';
+            }
+        },
+    }
+
+</script>

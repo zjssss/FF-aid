@@ -1,0 +1,117 @@
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="demo-page">
+
+      <div class='row' style="height:7%;">
+        <text class="conleft" value='用户名'></text>
+        <input class="conright" type="text" placeholder="输入真实姓名" @change="inputUserName"></input>
+      </div>
+      <div class='row' style="height:7%;">
+        <text class="conleft" value='密码'></text>
+        <input class="conright" type="password" placeholder="设置密码" @change="inputPassWord"></input>
+      </div>
+      <div class='row' style="height:7%;">
+        <text class="conleft" value='手机号'></text>
+        <input class="conright" type="tel" placeholder="输入手机号码" @change="inputTel"></input>
+      </div>
+      <div class='row' style="height:7%;">
+        <text class="buttontext">人脸认证</text>
+        <input class="button" type="button" value="去认证" @click="routeTP"></input>
+      </div>
+      <div class='row' style="height:7%">
+        <text class="conleft" value='性别'></text>
+        <input style="width:0px;"><picker class="picker" type="text" range="{{sexyList}}" value="{{sexy}}" @change="pickerChange('sexy')"></picker></input>
+      </div>
+      <div class='row' style="height:7%;">
+        <text class="conleft" value='出生年月'></text>
+        <input style="width:0px;"><picker class="picker" type="date" value="{{date}}" @change="pickerChange('date')"></picker></input>
+      </div>
+      <div>
+        <input class="btn" type="button" value="注册" onclick="myRegister"></input>
+      </div>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+import file from '@system.file' 
+import request from '@system.request'
+import image from '@system.image'
+import media from '@system.media'
+import prompt from '@system.prompt'
+import fetch from '@system.fetch'
+import storage from '@system.storage'
+
+export default {
+  data: {
+      username:'',
+      password:'',
+      tel:'',
+      date: '请选择日期',
+      sexy: '请选择性别',
+      sex:1,
+      sexyList: ['男生','女生']
+    },
+  inputUserName(e){
+    this.username = e.value;
+  },
+  inputPassWord(e){
+    this.password = e.value;
+  },
+  inputTel(e){
+    this.tel = e.value;
+  },
+  routeTP () {
+    storage.set({
+      key: 'cameranum',
+      value: 2,//1：人脸识别；2：人脸认证
+    })
+    router.push ({
+      uri: '/MyCamera'
+    })
+  },
+  pickerChange(what, e) {
+      if (what == 'date') {
+          this.date = e.year + "-" + (e.month + 1) + "-" + e.day; 
+          }
+      else if (what == 'sexy'){
+          this.sexy = e.newValue;
+          }
+    },
+  getsexyList(){
+      if(this.sexy=='男生') this.sex=1;
+      else if(this.sexy=='女生') this.sex=2;
+    },
+  myRegister(){
+    var _this=this;
+    
+    fetch.fetch({
+      url: "http://121.199.2.219:8080/users",
+        method:"POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: ({
+          "password": _this.password,
+          "username": _this.username,
+          "sex":_this.sex,
+          "birthday":_this.date,
+          "tel":_this.tel
+        }),
+        success: (data) => {
+          console.log("handling success");
+          prompt.showToast({
+            message: "注册成功",
+          });
+        },
+        fail: (data, code) => {
+          console.log("handling fail, code=" + code);
+          prompt.showToast({
+            message: "注册失败",
+          });
+        }
+    });
+  }
+}
+</script>
+
+<style src="./register.css"></style>

@@ -1,0 +1,105 @@
+    .demo-page{
+        flex-direction: column;
+        align-items: center;
+    }
+    .tip-btn1{
+        width: 22px;
+        height: 22px;
+        top: 5px;
+        right: 20px;
+        position: fixed;
+        background-image: url('https://upload-images.jianshu.io/upload_images/16487260-4343a56d73273e7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+        background-size: 100% 100%;
+    }
+    .tip-btn2{
+        width: 22px;
+        height: 22px;
+        top: 5px;
+        right: 50px;
+        position: fixed;
+        background-image: url('https://upload-images.jianshu.io/upload_images/16487260-30f2b7b7044e3628.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+        background-size: 100% 100%;
+    }
+    .titletype{
+        width: 80%;
+        height: 40px;
+        border-bottom-width: 1px;
+        border-bottom-color: #a6d8dc;
+        text-align: center;
+        font-size: 18px;
+        color: #a6d8dc;
+    }
+    .illtype-item{
+        width: 90%;
+        height: 30%;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .symptom-item{
+        width: 90%;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        columns: 3;
+        padding:10px;
+    }
+    .tem-row{
+        width:90%;
+        height:30px;
+        margin-top: 5px;
+        flex-direction: row;
+        align-items: center;
+    }
+    .tem-left{
+        height:100%;
+        text-align: left;
+        font-size: 15px;
+        color:#a6d8dc;
+    }
+    .tem-right{
+        width:40%;
+        height:100%;
+        text-align: left;
+        font-size: 15px;
+        color:#a8a8a8;
+        border-color: #c9c9c6;
+        border-width: 1px;
+    }
+    .this-listbox{
+        width:100%;
+        height:90%;
+        margin-top: 10px;
+        flex-direction:column;
+        columns: 3;
+    }
+    .list-item{
+        padding:10px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .list-btn1{
+        width:100px;
+        height:30px;
+        background-color:#c9c9c6;
+        text-align: center;
+        font-size:15px;
+        color:#ffffff;
+    }
+    .list-btn2{
+        width:100px;
+        height:30px;
+        background-color:#a6d8dc;
+        text-align: center;
+        font-size:15px;
+        color:#ffffff;
+    }
+    .main-btn{
+        width: 100px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: #a6d8dc;
+        text-align: center;
+        font-size: 16px;
+        color: #ffffff;
+    }

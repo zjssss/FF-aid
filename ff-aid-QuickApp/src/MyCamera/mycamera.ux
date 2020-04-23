@@ -1,0 +1,146 @@
+<template>
+  <div class="doc-page">
+    <div class="camera-item">
+      <camera id="camera" class="camera" deviceposition="{{deviceposition}}" flash="auto" onerror="handlerError"></camera>
+      <div type="button" class="cam-btn" onclick="takePhoto"></div>
+    </div>
+  </div>
+  
+</template>
+
+<style src="./camera.css"></style>
+
+<script>
+  import request from '@system.request'
+  import prompt from '@system.prompt'
+  import storage from '@system.storage'
+  import router from '@system.router'
+
+  export default {
+    private: {
+      cameranum: 0,
+      deviceposition: '',
+      pictureUrl: '',
+    },
+    onInit() {
+      storage.get({
+        key: 'cameranum',
+        success: (data) => {
+          this.cameranum = data;
+        },
+        complete:()=>{
+          if(this.cameranum==1){
+            this.$page.setTitleBar({ text: '人脸识别' });
+            this.deviceposition='back';
+          }
+          else if(this.cameranum==2){
+            this.$page.setTitleBar({ text: '人脸认证' });
+            this.deviceposition='front';
+          }
+        }
+      })
+    },
+    takePhoto () {
+      let _this = this
+      this.$element('camera').takePhoto({
+        quality: 'low',
+        success(data){
+          _this.pictureUrl = data.uri;
+        },
+        fail(data, code) {
+          console.log('take photos failed：code' + code.code)
+        },
+        complete() {
+          console.log('complete');
+          if(_this.cameranum==1){
+            request.upload({
+                url: "http://121.199.2.219:8080/users/identify",
+                method: "POST",
+                contentType:"multipart/form-data",
+                files: [
+                    {
+                        "uri": _this.pictureUrl,
+                        "filename": "recognition.jpg"
+                    }
+                ],
+                success: (data) => {
+                    console.log("handling success");
+                    var obj = eval('(' + data.data + ')');
+                    if(obj.tel1!=null){
+                      prompt.showToast({
+                        message: '人脸信息匹配成功',
+                      });
+                      storage.set({
+                        key: 'tel',
+                        value: obj.tel1,
+                      });
+                      router.back ({
+                        uri: '/Condition'
+                      })
+                    }
+                    else if(obj.tel1==null){
+                      prompt.showToast({
+                        message: '该人脸信息未登记',
+                      });
+                    }
+                },
+                fail: (data, code) => {
+                    console.log("handling fail, code=" + code);
+                    prompt.showToast({
+                            message: "上传失败",
+                    });
+                }
+            })
+          }
+          else if(_this.cameranum==2){
+            request.upload({
+                url: 'http://121.199.2.219:8080/users/identify',
+                method: "POST",
+                contentType:"multipart/form-data",
+                files: [{
+                  "uri": _this.pictureUrl,
+                  "filename": "register.jpg"
+                }],
+                success: (data) => {
+                  console.log("handling success");
+                  prompt.showToast({
+                    message: "认证成功",
+                  });
+                  router.back ({
+                    uri: '/Register'
+                  })
+                },
+                fail: (data, code) => {
+                  console.log("handling fail, code"+code); 
+                  prompt.showToast({
+                    message: "认证失败",
+                  });
+                }
+            })
+          }
+        }
+      })
+    },
+    // // 切换摄像头
+    // switchCamera (e) {
+    //   this.deviceposition = this.deviceposition === 'back' ? 'front' : 'back'
+    // },
+    // // 切换闪关灯
+    // switchFlash () {
+    //   const flashArr = ['auto', 'on', 'off', 'torch']
+    //   const textArr = ['自动', '开', '关', '常亮']
+    //   const index = flashArr.indexOf(this.flash)
+    //   if (index >= 3) {
+    //     this.flash = flashArr[0]
+    //   }
+    //   else {
+    //     this.flash = flashArr[index + 1]
+    //   }
+    //   this.flashText = textArr[flashArr.indexOf(this.flash)]
+    // },
+    // 权限不允许处理
+    handlerError () {
+      console.log('用户不允许使用摄像头')
+    }
+  }
+</script>

@@ -1,0 +1,183 @@
+<template>
+    <div class="demo-page">
+        <div class="prejudice-item">
+            <text class="titletype">病情预判</text>
+            <text class="btn1" type="button" value="{{high}}" onclick="Getguidance()"></text>
+            <text class="btn2" type="button" value="{{middle}}" onclick="Getguidance()"></text>
+            <text class="btn3" type="button" value="{{low}}" onclick="Getguidance()"></text>
+        </div>
+        <div class="cases-item">
+            <text class="titletype">是否出现以下症状</text>
+            <list id="list" class="list-box">
+            <block>
+                <!-- for="(index,item) in listData" -->
+                <!-- <list-item type="listItem" style="padding:10px;flex-direction: column;align-items: center;">
+                    <input class="list-btn" type="button" value="{{listData[index]}}" @click="Selected()"></input>
+                </list-item> -->
+                <list-item type="listItem" class="list-item">
+                    <input class="{{(liindex1 == 0) ? 'list-btn2':'list-btn1'}}" type="button" value="{{listData[0]}}" @click="Selected()"></input>
+                </list-item>
+                <list-item type="listItem" class="list-item">
+                    <input class="{{(liindex2 == 0) ? 'list-btn2':'list-btn1'}}" type="button" value="{{listData[1]}}" @click="Selected()"></input>
+                </list-item>
+                <list-item type="listItem" class="list-item">
+                    <input class="{{(liindex3 == 0) ? 'list-btn2':'list-btn1'}}" type="button" value="{{listData[2]}}" @click="Selected()"></input>
+                </list-item>
+                <list-item type="listItem" class="list-item">
+                    <input class="{{(liindex4 == 0) ? 'list-btn2':'list-btn1'}}" type="button" value="{{listData[3]}}" @click="Selected()"></input>
+                </list-item>
+                <list-item type="listItem" class="list-item">
+                    <input class="{{(liindex5 == 0) ? 'list-btn2':'list-btn1'}}" type="button" value="{{listData[4]}}" @click="Selected()"></input>
+                </list-item>
+                <list-item type="listItem" class="list-item">
+                    <input class="{{(liindex6 == 0) ? 'list-btn2':'list-btn1'}}" type="button" value="{{listData[5]}}" @click="Selected()"></input>
+                </list-item>
+            </block>
+            </list>
+        </div>
+        <div class="btn-item">
+            <input class="main-btn" type="button" value="确定" onclick="Judgeagain"></input>
+        </div>
+
+        <div show="{{showloading}}" style="width:125px;height:60px;flex-direction:column;align-items:center;left:125px;bottom:120px;position:fixed;">
+            <image src="https://upload-images.jianshu.io/upload_images/16487260-7a9a97606317c402.gif?imageMogr2/auto-orient/strip"
+            style="width:40px;height:40px;"></image>
+            <text style="width:125px;height:20px;font-size:12px;color:#c9c9c6;">算法优化中请稍等片刻</text>
+        </div>
+    </div>
+</template>
+
+<style src="./prejudice.css"></style>
+
+<script>
+    import storage from '@system.storage'
+    import prompt from '@system.prompt'
+    import router from '@system.router' 
+    import fetch from '@system.fetch'
+
+    export default {
+        data:{
+            high:'',
+            middle:'',
+            low:'',
+            liindex1:0,liindex2:0,liindex3:0,liindex4:0,liindex5:0,liindex6:0,
+            listData: [],
+            totalsym:'',
+            showloading:0,
+        },
+        onInit() {
+            this.$page.setTitleBar({text: '病情预判'});
+
+            storage.get({
+                key: 'illdetail',
+                success: (data) => {
+                    this.totalsym=data;
+                    console.log("handling success");
+                },
+                fail: (data, code) => {
+                    console.log("handling fail, code=" + code);
+                    prompt.showToast({
+                        message: '查询失败',
+                    });
+                }
+            });
+
+            this.high=this.$app.$data.disease1;
+            this.middle=this.$app.$data.disease2;
+            this.low=this.$app.$data.disease3;
+
+            this.listData.push(this.$app.$data.sym1);
+            this.listData.push(this.$app.$data.sym2);
+            this.listData.push(this.$app.$data.sym3);
+            this.listData.push(this.$app.$data.sym4);
+            this.listData.push(this.$app.$data.sym5);
+            this.listData.push(this.$app.$data.sym6);
+        },
+
+        Getguidance(e){
+            var thisvalue;
+            switch(e.target.attr.value){
+                case this.high:thisvalue=this.high;break;
+                case this.middle:thisvalue=this.middle;break;
+                case this.low:thisvalue=this.low;break;
+            }
+            storage.set({
+                        key: 'fullpoint',
+                        value: 0,
+                    })
+            storage.set({
+                key: 'disease21',
+                value: thisvalue,
+                success: function(data) {
+                    console.log('handling success')
+                },
+                fail: function(data, code) {
+                    console.log(`handling fail, code = ${code}`)
+                }
+            })
+            router.push ({
+                uri: '/Guidance'
+            })
+        },
+
+        Selected(e){
+            for(var i=0;i<6;i++){
+                if(e.target.attr.value==this.listData[i]){
+                    switch(i){
+                        case 0:this.liindex1=(this.liindex1 == 0) ? 1:0;break;
+                        case 1:this.liindex2=(this.liindex2 == 0) ? 1:0;break;
+                        case 2:this.liindex3=(this.liindex3 == 0) ? 1:0;break;
+                        case 3:this.liindex4=(this.liindex4 == 0) ? 1:0;break;
+                        case 4:this.liindex5=(this.liindex5 == 0) ? 1:0;break;
+                        case 5:this.liindex6=(this.liindex6 == 0) ? 1:0;break;
+                    }
+                }
+            }
+        },
+
+        Judgeagain(){
+            this.showloading=1;
+
+            this.liindex1==1?this.totalsym+=(this.listData[0]+'。'):this.totalsym;
+            this.liindex2==1?this.totalsym+=(this.listData[1]+'。'):this.totalsym;
+            this.liindex3==1?this.totalsym+=(this.listData[2]+'。'):this.totalsym;
+            this.liindex4==1?this.totalsym+=(this.listData[3]+'。'):this.totalsym;
+            this.liindex5==1?this.totalsym+=(this.listData[4]+'。'):this.totalsym;
+            this.liindex6==1?this.totalsym+=(this.listData[5]+'。'):this.totalsym;
+
+            fetch
+                .fetch({
+                    url: 'http://121.199.2.219:8080/users/vWord?word='+this.totalsym,
+                    responseType: 'json',
+                    method:'get'
+                })
+                .then(res => {
+                    storage.set({
+                        key: 'fullpoint',
+                        value: 0,
+                    })
+                    storage.set({
+                        key: 'disease21',
+                        value: res.data.data.aid1,
+                        success: function(data) {
+                            console.log('handling success')
+                        },
+                        fail: function(data, code) {
+                            console.log(`handling fail, code = ${code}`)
+                        }
+                    })
+
+                    this.showloading=0;
+                    router.push ({
+                        uri: '/Guidance'
+                    })
+                })
+                .catch(error => {
+                    this.showloading=0;
+                    prompt.showToast({
+                        message: "访问超时",
+                    });
+                })
+        }
+    }
+</script>

@@ -1,0 +1,39 @@
+.demo-page{
+    flex-direction: column;
+    align-items: center;
+}
+.persentage{
+    width: 80%;
+    height: 20%;
+    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+}
+.suggestion-item{
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-width: 1px;
+    border-color: #a6d8dc;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+.titletype{
+    width: 90%;
+    height: 40px;
+    border-bottom-width: 1px;
+    border-bottom-color: #a6d8dc;
+    text-align: center;
+    font-size: 18px;
+    color: #a6d8dc;
+}
+.text-area{
+    width: 90%;
+    margin-top: 10px;
+    font-size: 16px;
+    color:#a8a8a8;
+    text-align: left;
+    line-height:20px;
+}

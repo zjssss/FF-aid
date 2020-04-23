@@ -1,0 +1,88 @@
+@keyframes warn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0.0;
+    }
+    25% {
+        transform: scale(0.3);
+        opacity: 0.1;
+    }
+    50% {
+        transform: scale(0.5);
+        opacity: 0.3;
+    }
+    75% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.0;
+    }
+}
+@keyframes warn1 {
+    0% {
+        transform: scale(0.3);
+        opacity: 0.0;
+    }
+    25% {
+        transform: scale(0.3);
+        opacity: 0.1;
+    }
+    50% {
+        transform: scale(0.3);
+        opacity: 0.3;
+    }
+    75% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0.8);
+        opacity: 0.0;
+    }
+}
+.container {
+    width: 400px;
+    height: 400px;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    background-image: url("https://upload-images.jianshu.io/upload_images/16487260-746f9c11bd5f63bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240");
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* 产生动画（向外扩散变大）的圆圈  */
+.pulse {
+    width: 100%;
+    height: 100%;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 10px solid #7ec6cc;
+    border-radius: 2000px;
+    opacity:0;
+    animation-name: warn;
+    animation-timing-function: ease-out;
+    animation-duration: 2s;
+    animation-iteration-count: 10000;
+}
+.demo-page {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#a6d8dc, #ffffff);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.label-item{
+    width: 100%;
+    flex-direction: row;
+    top:20px;
+    position:fixed;
+}
+label{
+    font-size: 16px;
+    color: #ffffff;
+}

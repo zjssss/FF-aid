@@ -1,0 +1,63 @@
+<template>
+    <div class="demo-page">
+        <div class="prejudice-item">
+            <text class="titletype">急救指导</text>
+            <text class="sub-title">病情预判： {{prejudice}}</text>
+            <text class="sub-title">急救指导：</text>
+            <text class="text-area">{{guidance}}</text>
+        </div>
+    </div>
+</template>
+
+<style src="./guidance.css"></style>
+
+<script>
+    import fetch from '@system.fetch'
+    import storage from '@system.storage'
+    import prompt from '@system.prompt'
+
+    export default {
+        data:{
+            prejudice:'',
+            guidance:'',
+        },
+        onInit() {
+            this.$page.setTitleBar({text: '急救指导'})
+
+            var url='';
+            storage.get({
+                key: 'fullpoint',
+                success: (data) => {
+                    url=(data==0)?'http://121.199.2.219:8080/users/aidCare?disease=':'http://121.199.2.219:8080/neo/aidCare/L1?disease=';
+                },
+            })
+            storage.get({
+                key: 'disease21',
+                success: (data) => {
+                    this.prejudice=data;
+                },
+                fail: (data, code) => {
+                    prompt.showToast({
+                        message: '查询失败',
+                    });
+                },
+                complete:()=>{
+                    fetch
+                        .fetch({
+                            url: url+this.prejudice,
+                            responseType: 'text',
+                            method:'get'
+                        })
+                        .then(res => {
+                            this.guidance=res.data.data;
+                        })
+                        .catch(error => {
+                            prompt.showToast({
+                                message: '方案查询失败',
+                            });
+                        })
+                }
+            })
+        }
+    }
+</script>

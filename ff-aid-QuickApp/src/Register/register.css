@@ -1,0 +1,60 @@
+  .demo-page {
+    flex-direction: column;
+    /* justify-content: top; */
+    align-items: center;
+  }
+  .row{
+    width: 100%;
+    /* border-top: 1px solid #a6d8dc; */
+    border-bottom: 1px solid #a6d8dc;
+  }
+  .conleft{
+    padding-left: 10px;
+    width: 40%;
+    font-size: 16px;
+  }
+  .conright{
+    width: 60%;
+    font-size: 16px;
+    color: #666;
+    text-align: right;
+    margin:auto;
+    padding-right: 10px;
+  }
+  .buttontext{
+    padding-left: 10px;
+    width: 80%;
+    font-size: 16px;
+  }
+  .button{
+    width: 15%;
+    height: 70%;
+    margin: auto;
+    background-color: #a6d8dc;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    }
+  .picker{
+    width: 60%;
+    font-size: 16px;
+    text-align: right;
+    color: #666;
+    padding-right: 10px;
+  }
+  .btn{
+    height:40%;
+    width:20%;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #7ec6cc;
+    color:#fff;
+  }
+  
+  .mylogin{
+    height: 40px;
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #c9c9c6;
+    background-color: #ffffff;
+  }

@@ -1,0 +1,152 @@
+<import name="symptoms" src="./illtype"></import>
+
+<template>
+    <div class="demo-page">
+        <text class="tip-btn2" type="button" onclick="Tips2"></text>
+        <text class="tip-btn1" type="button" onclick="Tips1"></text>
+        <div class="illtype-item">
+            <text class="titletype">疾病类型</text>
+            <list id="list" class="this-listbox">
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue1 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Illlist[0]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue2 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Illlist[1]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue3 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Illlist[2]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue4 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Illlist[3]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue5 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Illlist[4]}}" @click="changecolor()"></input>
+                    </list-item>
+                    <list-item type="listItem" class="list-item">
+                        <input class="{{(isblue6 == 0) ? 'list-btn1':'list-btn2'}}" type="button" value="{{Illlist[5]}}" @click="changecolor()"></input>
+                    </list-item>
+            </list>
+        </div>
+        <symptoms></symptoms>
+        <div style="height:20%;margin-bottom:20px;">
+            <input class="main-btn" type="button" value="确定" onclick="ToResult"></input>
+        </div>
+
+        <div show="{{showloading}}" style="width:125px;height:60px;flex-direction:column;align-items:center;left:125px;bottom:140px;position:fixed;">
+            <image src="https://upload-images.jianshu.io/upload_images/16487260-7a9a97606317c402.gif?imageMogr2/auto-orient/strip"
+            style="width:40px;height:40px;"></image>
+            <text style="width:125px;height:20px;text-align:center;font-size:12px;color:#c9c9c6;">加载中</text>
+        </div>
+    </div>
+</template>
+
+<style src="./detection.css"></style>
+
+<script>
+    import prompt from '@system.prompt'
+    import router from '@system.router'
+    import fetch from '@system.fetch'
+
+    export default {
+        data: {
+            showloading:0,
+            isblue1:0,isblue2:0,isblue3:0,isblue4:0,isblue5:0,isblue6:0,
+            Illlist: ["新冠肺炎","流行性感冒","流行性出血热","过敏性疾病","溃疡病","甲型肝炎"],
+            tips1:"\n您可通过选择疾病类型和现有症状来​进行自测，连续记录病症可获得更加准确的检测结果。\n"+
+            "同时您的记录将根据定位录入到对应小区的流行疾病自测系统，用于判断是否出现疾病群发现象，进而分析整个小区的疾病扩散情况。\n"+
+            "该分析结果一方面可作为疾病自测的又一重要依据，另一方面将用于有关部门的相关疾病数据统计。",
+            tips2:"\n■注意保持室内环境卫生和居室通风，但每次通风时间不宜过长，以15—30分钟为宜。\n"+
+            "■避免与表现出呼吸道疾病症状（例如咳嗽和打喷嚏）的人密切接触。如有发热、呼吸道感染症状，请及时到当地医疗机构发热门诊就诊。\n"+
+            "■ 加强锻炼，增强体质，提高自身抗病能力，保持正常的生活规律，注意劳逸结合。\n"+
+            "■ 注意多饮水，均衡饮食，生食蔬菜水果前应仔细清洗，牡蛎等贝壳类水产品应烧熟煮透后再吃。\n"+
+            "■ 注意保持良好的个人卫生习惯，饭前便后、外出归来以及打喷嚏、咳嗽和清洁鼻子后，都要立即用流动水和肥皂洗手。尽量不要去人流密集和空气不流通的公共场所。",
+        },
+        Tips1(){
+            prompt.showDialog({
+                title: "自测说明",
+                message: this.tips1,
+                autocancel :true,
+            })
+        },
+        Tips2(){
+            prompt.showDialog({
+                title: "新冠防护小贴士",
+                message: this.tips2,
+                autocancel :true,
+            })
+        },
+        changecolor(e){
+            this.isblue1=0;this.isblue2=0;this.isblue3=0;
+            this.isblue4=0;this.isblue5=0;this.isblue6=0;
+            for(var i=0;i<6;i++){
+                if(e.target.attr.value==this.Illlist[i]){
+                    this.$app.$data.d_illtype=this.Illlist[i];
+                    switch(i){
+                        case 0:this.isblue1=1;break;
+                        case 1:this.isblue2=1;break;
+                        case 2:this.isblue3=1;break;
+                        case 3:this.isblue4=1;break;
+                        case 4:this.isblue5=1;break;
+                        case 5:this.isblue6=1;break;
+                    }
+                }
+            }
+        },
+        ToResult(){
+            if(this.$app.$data.d_illtype==""){
+                prompt.showToast({
+                    message: "请选择疾病类型",
+                });
+            }
+            else if(this.$app.$data.d_temperature==""){
+                prompt.showToast({
+                    message: "请输入体温",
+                });
+            }
+            else if(this.$app.$data.d_symptom==""){
+                prompt.showToast({
+                    message: "请选择现有症状",
+                });
+            }
+            else if(this.$app.$data.d_illtype!=""&&this.$app.$data.d_temperature!=""&&this.$app.$data.d_symptom!="")
+            {
+                this.showloading=1;
+                fetch
+                    .fetch({
+                        url: 'http://121.199.2.219:8080/users/epidemic?describe='+this.$app.$data.d_symptom,
+                        responseType: 'text',
+                        method:'get'
+                    })
+                    .then(res => {
+                        this.$app.$data.d_persentage=res.data.data;
+                        fetch
+                            .fetch({
+                                url: 'http://121.199.2.219:8080/users/advice/?rate='+this.$app.$data.d_persentage,
+                                responseType: 'text',
+                                method:'get'
+                            })
+                            .then(res => {
+                                this.showloading=0;
+                                this.$app.$data.d_suggestion=res.data.data;
+                                router.push ({
+                                    uri: '/Detectionresult'
+                                });
+                            })
+                            .catch(error => {
+                                this.showloading=0;
+                                prompt.showToast({
+                                    message: "访问超时",
+                                });
+                            })
+                    })
+                    .catch(error => {
+                        this.showloading=0;
+                        prompt.showToast({
+                            message: "访问超时",
+                        });
+                    })
+            }
+        }
+    }
+
+</script>

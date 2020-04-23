@@ -1,0 +1,32 @@
+<!-- zlis 2020/4/22 -->
+
+<!-- 主入口文件Tabbar/tabbar.ux -->
+
+<!-- 全局变量 manifest.json/config.data
+一键求救模块：
+"disease1":置信度第一的疾病
+"disease2":置信度第二的疾病
+"disease3":置信度第三的疾病
+"sym1":补充症状1
+"sym2":补充症状2
+"sym3":补充症状3
+"sym4":补充症状4
+"sym5":补充症状5
+"sym6":补充症状6
+
+流行疾病自测模块：
+"d_illtype":疾病类型
+"d_symptom":现有症状
+"d_temperature":体温
+"d_persentage":患病概率（不带百分号）
+"d_suggestion":相关建议 -->
+
+<!-- 存储数据 storage
+"cameranum":相机编号，1代表人脸识别，2代表人脸认证
+"illdetail":语音描述的文本
+"fullpoint":是否已知疾病，0表示末尾没有句号对应未知疾病求救，1表示末尾有句号对应已知疾病求救
+"disease21":用来去数据库查找急救指导的疾病名称
+"tel":紧急联系人的电话
+"location:定位 -->
+
+<!-- 注册的时候人脸认证跟其他信息一起上传还是在人脸认证界面单独上传（目前是单独） -->

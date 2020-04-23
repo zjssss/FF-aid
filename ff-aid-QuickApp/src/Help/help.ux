@@ -1,0 +1,96 @@
+
+<template>
+    <div class="demo-page">
+        <div class="label-item">
+            <image src="https://upload-images.jianshu.io/upload_images/16487260-828d3f3d5a833477.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></image>
+            <label>{{mylocation}}</label>
+        </div>
+        <div class="container" onclick="click">     
+            <div class="pulse">
+                <div class="pulse">
+                  <div class="pulse">
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style src="./help.css"></style>
+
+<script>
+    import router from '@system.router'
+    import geolocation from '@system.geolocation'
+    import fetch from '@system.fetch'
+    import prompt from '@system.prompt'
+    import storage from '@system.storage'
+
+    export default {
+        data: {
+            getLongitude:'',
+            getLatitude:'',
+            mylocation:'',
+        },
+        onInit(){
+            this.Getaddress()
+        },
+        Getaddress(){
+            geolocation.getLocation({
+                timeout:3000,
+                success:(data)=>{
+                    this.getLongitude = data.longitude;
+                    this.getLatitude = data.latitude;
+                },
+                fail: (data, code)=> {
+                    if (code == 201) {
+                        prompt.showToast({
+                            message:'获取定位权限失败',
+                        });
+                    }else if (code == 204) {
+                        prompt.showToast({
+                            message:'超时返回',
+                        });
+                    }else if (code == 1000) {
+                        prompt.showToast({
+                            message:'系统定位开启失败',
+                        });
+                    }else {
+                        prompt.showToast({
+                            message:'未知异常',
+                        });
+                    }
+                },
+                complete: ()=> {
+                    var latlon = this.getLatitude+','+this.getLongitude;
+                    // baidu接口
+                    var baiduurl = "https://api.map.baidu.com/geocoder/v2/?ak=ivcwm3ovL7B237Rto0K0IPFhovV8g0lb&location="+latlon+"&output=json&pois=0";
+                    fetch
+                        .fetch({
+                            url: baiduurl,
+                            responseType: 'json',
+                            method:'get'
+                        })
+                        .then(res => {
+                            if(res.data.data.status==0){
+                                this.mylocation = res.data.data.result.formatted_address;
+                                storage.set({
+                                    key: 'location',
+                                    value: res.data.data.result.formatted_address,
+                                })
+                            }
+                        })
+                        .catch(error => {
+                            prompt.showToast({
+                                message: "转换失败",
+                            });
+                        })
+                }
+            })
+        },
+        click(event){
+            router.push ({
+                uri: '/Condition'
+            })
+        } 
+  }
+</script> 

@@ -1,0 +1,121 @@
+.demo-page {
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.label-item{
+    width: 80%;
+    height: 4%;
+    margin-top: 20px;
+    padding: 5px;
+    border-width: 1px;
+    border-color: #dddddd;
+    border-radius: 20px;
+}
+label{
+    font-size: 12px;
+    color: #c9c9c6;
+}
+.label-btn1{
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #a6d8dc;
+}
+.label-btn2{
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #ffffff;
+    background-color:#dddddd;
+}
+.voice-item{
+    width: 80%;
+    height: 50%;
+    margin-top: 20px;
+    border-width: 1px;
+    border-color: #a6d8dc;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+.titletype{
+    width: 80%;
+    height: 10%;
+    border-bottom-width: 1px;
+    border-bottom-color: #a6d8dc;
+    text-align: center;
+    font-size: 18px;
+    color: #a6d8dc;
+}
+.illtext{
+    width: 80%;
+    height: 90%;
+    padding: 5px;
+    font-size: 16px;
+    color:#a8a8a8;
+    text-align: left;
+}
+.beginbtn{
+    width: 100px;
+    height: 100px;
+    margin-top: 150px;
+    background-image: url('https://upload-images.jianshu.io/upload_images/16487260-b95160ec9aa792f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+    background-position: center;
+    background-size: 70% 100%;
+    background-repeat: no-repeat;
+}
+.tips{
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    font-size: 10px;
+    color:#a8a8a8;
+    position: relative;
+}
+.overbtn{
+    width: 100px;
+    height: 100px;
+    margin-top: 150px;
+    background-image: url('https://upload-images.jianshu.io/upload_images/16487260-937407ce48381999.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+    background-position: center;
+    background-size: 70% 100%;
+    background-repeat: no-repeat;
+}
+.recognition-btn1{
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    background-image: url('https://upload-images.jianshu.io/upload_images/16487260-46b7ef6c1cbaa2c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+}
+.recognition-btn2{
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    background-image: url('https://upload-images.jianshu.io/upload_images/16487260-41b8edb07e2077be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+}
+.main-btn1{
+    width: 160px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #a6d8dc;
+    font-size: 16px;
+    color: #ffffff;
+}
+.main-btn2{
+    width: 160px;
+    height: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #dddddd;
+    font-size: 16px;
+    color: #ffffff;
+}
