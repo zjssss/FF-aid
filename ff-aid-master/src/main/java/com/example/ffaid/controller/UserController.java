@@ -77,16 +77,17 @@ public class UserController {
 
 
     @PostMapping("")
-    @ApiOperation(value="用户注册",tags={""},notes="user 为整个对象，还要传入一个图像file")
-    public Object userRegister(MultipartFile file, User user) {
+    @ApiOperation(value="用户注册",tags={""},notes="user 为整个对象")
+    public Object userRegister(User user) {
 
-        System.out.println(file.isEmpty());
-        String ranName=userService.handleUploadPicture(file);
-        user.setPic(ranName);
-        userService.userRegister(user);
-        User user1 =userService.getUserByTel(user.getTel());
-        FaceAdd.add(user1.getId(),ranName);
-        return "success";
+        return ResponseEntity.ok(userService.userRegister(user));
+    }
+
+    @PostMapping("/face")
+    @ApiOperation(value="用户录入人脸信息",tags={""},notes="用户人脸信息输入")
+    public Object userFaceRegister(MultipartFile file, @RequestParam("tel") String tel) {
+
+        return ResponseEntity.ok(userService.userFaceRegister(file, tel));
     }
 
     @PostMapping("/image")
@@ -151,8 +152,8 @@ public class UserController {
      * 通过疾病获得急救指导
      */
     @GetMapping(value = "/aidCare")
-    public Object searchNode(@RequestParam("disease") String disease)throws Exception{
-        return ResponseEntity.ok(neo4jService.searchNode(disease));
+    public Object searchNode(@RequestParam("disease") String disease,@RequestParam("datakind") String datakind)throws Exception{
+        return ResponseEntity.ok(neo4jService.searchNode(disease,datakind));
     }
 
     /**
@@ -169,7 +170,7 @@ public class UserController {
      */
     @GetMapping(value="/advice")
     @ApiOperation(value="流行病检测——通过患该流行病的概率获得当前建议（特指新冠）",tags={""},notes="")
-    public Object epidemicAdvice(@RequestParam("rate") Integer rate)throws Exception{
+    public Object epidemicAdvice(@RequestParam("rate") Double rate)throws Exception{
         return ResponseEntity.ok(adviceUtil.advice(rate));
     }
 

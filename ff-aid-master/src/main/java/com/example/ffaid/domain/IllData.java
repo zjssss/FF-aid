@@ -21,6 +21,10 @@ public class IllData {
      */
     private String illkind;
     /**
+     * 急救药情况
+     */
+    private String medicine;
+    /**
      * 添加病逝的时间
      */
     private Timestamp addtime;
@@ -78,4 +82,13 @@ public class IllData {
     public void setDetail(String detail) {
         this.detail = detail;
     }
+
+    public String getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(String medicine) {
+        this.medicine = medicine;
+    }
+
 }

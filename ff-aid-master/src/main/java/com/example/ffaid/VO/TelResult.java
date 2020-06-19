@@ -11,6 +11,26 @@ public class TelResult implements Serializable {
     private String Tel2;
     private String Tel3;
 
+    private String medicine;
+
+    private String care;
+
+    public String getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(String medicine) {
+        this.medicine = medicine;
+    }
+
+    public String getCare() {
+        return care;
+    }
+
+    public void setCare(String care) {
+        this.care = care;
+    }
+
     public String getTel1() {
         return Tel1;
     }

@@ -58,7 +58,7 @@ public class FaceIdentify {
             //参数参考api文档
             String param="user_top_num="+userTopNum+"&image_type=BASE64"+"&group_id_list="+groupId+"&"+ URLEncoder.encode("image","UTF-8")+"="+URLEncoder.encode(imgStr1,"UTF-8");
 
-            String accessToken = "24.e9cbb96fe3c8a488156b81406a1e534a.2592000.1589353942.282335-18646513";
+            String accessToken = "24.22992ca6894d3cf5949478ca25f02bff.2592000.1593675540.282335-18646513";
 
             String result = HttpUtil.post(url, accessToken, "application/json", param);
             System.out.println(result);

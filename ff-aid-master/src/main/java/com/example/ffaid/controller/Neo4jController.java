@@ -19,16 +19,20 @@ public class Neo4jController {
     @Autowired
     private Neo4jService neo4jService;
     @GetMapping(value = "/aidCare")
-    public Object searchNode(@RequestParam("disease") String disease)throws Exception{
+    public Object searchNode(@RequestParam("disease") String disease,@RequestParam("datakind") String datakind)throws Exception{
 
-        return ResponseEntity.ok(neo4jService.searchNode(disease));
+        if(disease.charAt(disease.length()-1)=='。')
+        {
+            disease=disease.substring(0,disease.length()-1);
+        }
+        return ResponseEntity.ok(neo4jService.searchNode(disease,datakind));
     }
 
-    @GetMapping(value="/aidCare/L1")
-    public Object searchNodeL1(@RequestParam("disease") String disease)throws Exception{
 
-        disease=disease.substring(0,disease.length()-1);
-        return ResponseEntity.ok(neo4jService.searchNode(disease));
+    @GetMapping(value = "/aidCare/relatedDiseases")
+    public Object searchNodeList(@RequestParam("disease") String disease,@RequestParam("datakind") String datakind)throws Exception{
+
+        return ResponseEntity.ok(neo4jService.searchNodeList(disease,datakind));
     }
 
 }

@@ -12,8 +12,8 @@
     </select>
 
     <insert id="createIllData" parameterType="com.example.ffaid.domain.IllData" useGeneratedKeys="true" keyProperty="id">
-        insert into illData(userId, illkind, addtime, detail, deleted)
-        values (#{userId},#{illkind},current_timestamp ,#{detail},0)
+        insert into illData(userId, illkind, medicine,addtime, detail, deleted)
+        values (#{userId},#{illkind},#{medicine},current_timestamp ,#{detail},0)
     </insert>
 
     <update id="updateIllData" parameterType="com.example.ffaid.domain.IllData">
